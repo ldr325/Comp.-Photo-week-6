@@ -1,0 +1,27 @@
+PImage tree;
+
+void setup() 
+{
+  size(4032,3024);
+  tree = loadImage("vSGqq9KHRDKt2gxa4Mie%w.jpg");
+}
+
+void draw() {
+  image(tree,0,0);
+  loadPixels();
+  
+  tree.loadPixels();
+  for(int y = 0; y <height; y++){
+    for(int x = 0; x < width; x++) {
+      int loc = x+y*width;
+      float b = brightness(tree.pixels[loc]);
+      if (b > 60) {
+        pixels[loc] = color(255);
+      } else {
+        pixels[loc] = color(0);
+      }
+    }
+  }
+  updatePixels();
+  save("tree.jpg");
+}
