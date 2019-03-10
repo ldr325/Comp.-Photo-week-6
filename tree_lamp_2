@@ -1,0 +1,28 @@
+PImage tree;
+
+
+void setup() 
+{
+  size(3024,4032);
+  tree = loadImage("fullsizeoutput_60.jpeg");
+}
+
+void draw() {
+  image(tree,0,0);
+  loadPixels();
+  tree.loadPixels();
+  for(int x = 1; x < width; x++) {
+    for(int y = 0; y < height; y++) {
+      int loc = x+y*tree.width;
+      color pix = tree.pixels[loc];
+      
+      int leftLoc = (x-1) + y*(tree.width/2);
+      color leftPix = tree.pixels[leftLoc];
+      
+      float diff = abs(brightness(pix) - brightness(leftPix));
+      pixels[loc] = color(diff);
+    }
+  }
+  updatePixels();
+  save("tree_lamp_2.jpg");
+}
