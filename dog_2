@@ -1,0 +1,27 @@
+PImage doggo;
+
+void setup() 
+{
+  size(3024,4032);
+  doggo = loadImage("fullsizeoutput_5d.jpeg");
+}
+
+void draw() {
+  image(doggo,0,0);
+  loadPixels();
+  doggo.loadPixels();
+  for(int x = 1; x < width; x++) {
+    for(int y = 0; y < height; y++) {
+      int loc = x+y*doggo.width;
+      color pix = doggo.pixels[loc];
+      
+      int leftLoc = (x-1) + y*(doggo.width/2);
+      color leftPix = doggo.pixels[leftLoc];
+      
+      float diff = abs(brightness(pix) - brightness(leftPix));
+      pixels[loc] = color(diff);
+    }
+  }
+  updatePixels();
+  save("doggo_2.jpg");
+}
