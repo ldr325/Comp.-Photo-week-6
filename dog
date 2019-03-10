@@ -1,0 +1,26 @@
+PImage doggo;
+
+void setup() 
+{
+  size(3024,4032);
+  doggo = loadImage("fullsizeoutput_5d.jpeg");
+}
+
+void draw() {
+  image(doggo,0,0);
+  loadPixels();
+  doggo.loadPixels();
+  for(int y = 0; y <height; y++){
+    for(int x = 0; x < width; x++) {
+      int loc = x+y*width;
+      float b = brightness(doggo.pixels[loc]);
+      if (b > 150) {
+        pixels[loc] = color(255);
+      } else {
+        pixels[loc] = color(0);
+      }
+    }
+  }
+  updatePixels();
+  save("dog.jpg");
+}
